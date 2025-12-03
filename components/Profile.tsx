@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
-import { UserProfile, Language, Theme, Meal, WorkoutSession } from '../types';
+import { UserProfile, Language, Theme, Meal, WorkoutSession, ActivityLevel } from '../types';
 import { TRANSLATIONS } from '../constants';
 import { Button } from './ui/Button';
-import { Input } from './ui/Input';
+import { Input, Select } from './ui/Input';
 import { User, Globe, Moon, Sun, Sparkles, Settings as SettingsIcon, X } from 'lucide-react';
 import { analyzeProgress } from '../services/geminiService';
 
@@ -58,7 +58,10 @@ export const Profile: React.FC<ProfileProps> = ({
            <User size={40} />
         </div>
         <h3 className="text-xl font-bold text-white">{user.name}</h3>
-        <p className="text-primary font-medium tracking-wide text-sm bg-primary/10 px-3 py-1 rounded-full mt-2">{t.goals[user.goal]}</p>
+        <div className="flex gap-2 mt-2">
+            <span className="text-primary font-medium tracking-wide text-xs bg-primary/10 px-3 py-1 rounded-full">{t.goals[user.goal]}</span>
+            <span className="text-primary font-medium tracking-wide text-xs bg-primary/10 px-3 py-1 rounded-full">{t.activityLevels[user.activityLevel]}</span>
+        </div>
         
         {isEditing ? (
            <div className="w-full space-y-3 mt-4 animate-fade-in">
@@ -68,6 +71,17 @@ export const Profile: React.FC<ProfileProps> = ({
                  <Input label={t.weight} type="number" value={editForm.weight} onChange={e => setEditForm({...editForm, weight: Number(e.target.value)})} />
               </div>
                <Input label={t.height} type="number" value={editForm.height} onChange={e => setEditForm({...editForm, height: Number(e.target.value)})} />
+               
+               <Select 
+                  label={t.activityLevel}
+                  value={editForm.activityLevel}
+                  onChange={e => setEditForm({...editForm, activityLevel: e.target.value as ActivityLevel})}
+                >
+                  <option value={ActivityLevel.SEDENTARY}>{t.activityLevels[ActivityLevel.SEDENTARY]}</option>
+                  <option value={ActivityLevel.MODERATE}>{t.activityLevels[ActivityLevel.MODERATE]}</option>
+                  <option value={ActivityLevel.ACTIVE}>{t.activityLevels[ActivityLevel.ACTIVE]}</option>
+                </Select>
+
               <div className="flex gap-2 mt-2">
                  <Button variant="secondary" fullWidth onClick={() => setIsEditing(false)}>{t.cancel}</Button>
                  <Button fullWidth onClick={handleSave}>{t.save}</Button>

@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 import { UserProfile, Meal, WorkoutSession, Language } from '../types';
 
@@ -30,6 +31,7 @@ export const analyzeProgress = async (
       - Height: ${user.height}cm
       - Weight: ${user.weight}kg
       - Goal: ${user.goal}
+      - Activity Level: ${user.activityLevel}
       
       Data for Today (${today}):
       - Total Calories Eaten: ${totalCals}

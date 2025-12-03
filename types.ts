@@ -15,6 +15,12 @@ export enum Goal {
   GAIN_MUSCLE = 'gain_muscle'
 }
 
+export enum ActivityLevel {
+  SEDENTARY = 'sedentary',
+  MODERATE = 'moderate',
+  ACTIVE = 'active'
+}
+
 export interface NutritionGoal {
   calories: number;
   protein: number;
@@ -28,6 +34,7 @@ export interface UserProfile {
   height: number; // cm
   weight: number; // kg
   goal: Goal;
+  activityLevel: ActivityLevel;
   isOnboarded: boolean;
   nutritionGoal?: NutritionGoal;
   monthlyWorkoutGoal?: number;

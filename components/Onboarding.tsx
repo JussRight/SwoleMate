@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { UserProfile, Goal, Language, Theme } from '../types';
+import { UserProfile, Goal, Language, Theme, ActivityLevel } from '../types';
 import { Input, Select } from './ui/Input';
 import { Button } from './ui/Button';
 import { TRANSLATIONS } from '../constants';
@@ -21,6 +22,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete, initialName 
     height: 175,
     weight: 70,
     goal: Goal.MAINTAIN,
+    activityLevel: ActivityLevel.MODERATE,
     isOnboarded: false
   });
 
@@ -87,6 +89,16 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete, initialName 
                 <option value={Goal.LOSE_WEIGHT}>{t.goals[Goal.LOSE_WEIGHT]}</option>
                 <option value={Goal.MAINTAIN}>{t.goals[Goal.MAINTAIN]}</option>
                 <option value={Goal.GAIN_MUSCLE}>{t.goals[Goal.GAIN_MUSCLE]}</option>
+              </Select>
+
+              <Select 
+                label={t.activityLevel}
+                value={formData.activityLevel}
+                onChange={e => setFormData({...formData, activityLevel: e.target.value as ActivityLevel})}
+              >
+                <option value={ActivityLevel.SEDENTARY}>{t.activityLevels[ActivityLevel.SEDENTARY]}</option>
+                <option value={ActivityLevel.MODERATE}>{t.activityLevels[ActivityLevel.MODERATE]}</option>
+                <option value={ActivityLevel.ACTIVE}>{t.activityLevels[ActivityLevel.ACTIVE]}</option>
               </Select>
             </div>
           )}

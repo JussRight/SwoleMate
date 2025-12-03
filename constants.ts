@@ -1,5 +1,5 @@
 
-import { Language, Goal } from './types';
+import { Language, Goal, ActivityLevel } from './types';
 
 export const TRANSLATIONS = {
   [Language.RU]: {
@@ -17,6 +17,12 @@ export const TRANSLATIONS = {
       [Goal.LOSE_WEIGHT]: 'Похудение',
       [Goal.MAINTAIN]: 'Удержание веса',
       [Goal.GAIN_MUSCLE]: 'Набор массы',
+    },
+    activityLevel: 'Активность',
+    activityLevels: {
+      [ActivityLevel.SEDENTARY]: 'Низкая активность',
+      [ActivityLevel.MODERATE]: 'Средняя активность',
+      [ActivityLevel.ACTIVE]: 'Высокая активность',
     },
     save: 'Сохранить',
     cancel: 'Отмена',
@@ -80,6 +86,12 @@ export const TRANSLATIONS = {
       [Goal.LOSE_WEIGHT]: 'Lose Weight',
       [Goal.MAINTAIN]: 'Maintain Weight',
       [Goal.GAIN_MUSCLE]: 'Gain Muscle',
+    },
+    activityLevel: 'Activity Level',
+    activityLevels: {
+      [ActivityLevel.SEDENTARY]: 'Low Activity',
+      [ActivityLevel.MODERATE]: 'Moderate',
+      [ActivityLevel.ACTIVE]: 'Active',
     },
     save: 'Save',
     cancel: 'Cancel',
