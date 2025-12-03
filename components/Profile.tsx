@@ -4,8 +4,7 @@ import { UserProfile, Language, Theme, Meal, WorkoutSession, ActivityLevel } fro
 import { TRANSLATIONS } from '../constants';
 import { Button } from './ui/Button';
 import { Input, Select } from './ui/Input';
-import { User, Globe, Moon, Sun, Sparkles, Settings as SettingsIcon, X } from 'lucide-react';
-import { analyzeProgress } from '../services/geminiService';
+import { User, Globe, Moon, Sun, Settings as SettingsIcon, X } from 'lucide-react';
 
 interface ProfileProps {
   user: UserProfile;
@@ -23,21 +22,11 @@ export const Profile: React.FC<ProfileProps> = ({
   const t = TRANSLATIONS[language];
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState(user);
-  const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
-  const [loadingAi, setLoadingAi] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 
   const handleSave = () => {
     onUpdateUser(editForm);
     setIsEditing(false);
-  };
-
-  const handleAnalyze = async () => {
-    setLoadingAi(true);
-    setAiAnalysis(null);
-    const result = await analyzeProgress(user, meals, workouts, language);
-    setAiAnalysis(result);
-    setLoadingAi(false);
   };
 
   return (
@@ -104,27 +93,6 @@ export const Profile: React.FC<ProfileProps> = ({
              <Button variant="secondary" className="col-span-3 mt-4" onClick={() => setIsEditing(true)}>{t.edit}</Button>
           </div>
         )}
-      </div>
-
-      {/* AI Coach */}
-      <div className="bg-gradient-to-br from-gray-900 to-black p-6 rounded-3xl border border-gray-800 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none" />
-        
-        <div className="flex items-center gap-2 mb-2">
-          <Sparkles size={20} className="text-primary" />
-          <h3 className="font-bold text-lg text-white">{t.aiCoach}</h3>
-        </div>
-        <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-          {aiAnalysis || (language === Language.RU ? 'Нажмите для анализа ваших данных сегодня.' : 'Tap to analyze your data for today.')}
-        </p>
-        <Button 
-           onClick={handleAnalyze} 
-           disabled={loadingAi}
-           variant="primary"
-           fullWidth
-        >
-          {loadingAi ? t.analyzing : t.aiAnalyze}
-        </Button>
       </div>
 
       {/* Settings Modal */}
